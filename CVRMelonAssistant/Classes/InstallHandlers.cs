@@ -49,7 +49,7 @@ namespace CVRMelonAssistant
             {
                 MainWindow.Instance.MainText = $"{(string) App.Current.FindResource("Mods:DownloadingMelonLoader")}...";
 
-                using var installerZip = await DownloadFileToMemory("https://github.com/LavaGang/MelonLoader/releases/latest/download/MelonLoader.x64.zip");
+                using var installerZip = await DownloadFileToMemory("https://nightly.link/LavaGang/MelonLoader/actions/runs/17447824590/MelonLoader.Windows.x64.CI.Release.zip");
                 using var zipReader = new ZipArchive(installerZip, ZipArchiveMode.Read);
 
                 MainWindow.Instance.MainText = $"{(string) App.Current.FindResource("Mods:UnpackingMelonLoader")}...";

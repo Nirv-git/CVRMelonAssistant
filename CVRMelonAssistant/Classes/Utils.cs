@@ -26,6 +26,7 @@ namespace CVRMelonAssistant
         {
             public const string ChilloutVRAppId = "661130";
             public const string CVRMGModsJson = "https://api.cvrmg.com/v1/mods";
+            public const string CVRMGModsFlagsJson = "https://gist.githubusercontent.com/Nirv-git/1963e20d855c401349820a93b4d2639b/raw/cvrModFlags.json";
             public const string WeebCDNAPIURL = "https://pat.assistant.moe/api/v1.0/";
             public const string MD5Spacer = "                                 ";
             public static readonly char[] IllegalCharacters = new char[]

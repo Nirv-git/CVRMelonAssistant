@@ -21,6 +21,7 @@ using static CVRMelonAssistant.Http;
 using MessageBox = System.Windows.MessageBox;
 using TextBox = System.Windows.Controls.TextBox;
 
+
 namespace CVRMelonAssistant.Pages
 {
     /// <summary>
@@ -137,6 +138,8 @@ namespace CVRMelonAssistant.Pages
         {
             await GetAllMods();
 
+            await GetFlagMapping();
+
             await Task.Run(() =>
             {
                 CheckInstallDir("Plugins");
@@ -171,6 +174,31 @@ namespace CVRMelonAssistant.Pages
             }
         }
 
+        public async Task GetFlagMapping()
+        {
+            try
+            {
+                var resp = await HttpClient.GetAsync(Utils.Constants.CVRMGModsFlagsJson);
+                var body = await resp.Content.ReadAsStringAsync();
+
+                var entries = JsonSerializer.Deserialize<FlagEntry[]>(body);
+
+                if (entries == null || entries.Length == 0 || AllModsList == null) return;
+
+                var flagById = new Dictionary<int, int>(entries.Length);
+                foreach (var e in entries)
+                    flagById[e._id] = e.flag;
+
+                foreach (var mod in AllModsList)
+                    mod.flag = flagById.TryGetValue(mod._id, out var f) ? f : 0;
+
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show($"{FindResource("Mods:LoadFailed")} - Flags.\n\n" + e);
+            }
+        }
+
         private void CheckInstallDir(string directory, bool isBrokenDir = false, bool isRetiredDir = false)
         {
             if (!Directory.Exists(Path.Combine(App.ChilloutInstallDirectory, directory)))
@@ -180,8 +208,8 @@ namespace CVRMelonAssistant.Pages
 
             foreach (string file in Directory.GetFileSystemEntries(Path.Combine(App.ChilloutInstallDirectory, directory), "*.dll", SearchOption.TopDirectoryOnly))
             {
-                if (!File.Exists(file) || Path.GetExtension(file) != ".dll") continue;
 
+                if (!File.Exists(file) || Path.GetExtension(file) != ".dll") continue;
                 var modInfo = ExtractModVersions(file);
                 if (modInfo.Item1 != null && modInfo.Item2 != null)
                 {
@@ -295,7 +323,7 @@ namespace CVRMelonAssistant.Pages
             {
                 IsSelected = preSelected,
                 IsEnabled = true,
-                Flag = latestVersion.flag,
+                Flag = mod.flag,
                 ModName = latestVersion.name,
                 ModVersion = latestVersion.modVersion,
                 ModAuthor = HardcodedCategories.FixupAuthor(latestVersion.author),
@@ -409,7 +437,7 @@ namespace CVRMelonAssistant.Pages
                     {
                         case 1: return "★";
                         case 2: return "♥";
-                        case 3: return "!!";
+                        case 3: return "ⓘ"; //!! ⓘ Ⓘ
                         default: return "";
                     }
                 }
@@ -421,9 +449,9 @@ namespace CVRMelonAssistant.Pages
                 {
                     switch(Flag)
                     {
-                        case 1: return "#FFD700";
+                        case 1: return "#d6b600"; //FFD700
                         case 2: return "#98002e";
-                        case 3: return "#FF0000";
+                        case 3: return "#e06c00"; //orange #e06c00  purpl #7000e0
                         default: return "";
                     }            
                 }

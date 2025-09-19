@@ -67,7 +67,7 @@ namespace CVRMelonAssistant.Pages
         {
             string location = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                "AppData", "LocalLow", "Alpha Blend Interactive", "ChilloutVR");
+                "AppData", "LocalLow", "ChilloutVR", "ChilloutVR");
             if (Directory.Exists(location))
             {
                 Utils.OpenFolder(location);

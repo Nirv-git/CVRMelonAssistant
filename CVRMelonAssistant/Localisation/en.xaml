@@ -38,7 +38,7 @@
         ChilloutVR allows modding the game under certain conditions, specifically as long as mods are not used for evil.
     </Span>
     <Span x:Key="Intro:Terms:Term0">
-        ChilloutVR Modding Assistant and mods provided here are not associated with or endorsed by Alpha Blend Interactive (the devloper).
+        ChilloutVR Modding Assistant and mods provided here are not associated with or endorsed by ChilloutVR.
     </Span>
     <Span x:Key="Intro:Terms:Term1">
         Mods
@@ -113,7 +113,8 @@
     <sys:String x:Key="Mods:FailedExtract">Failed to extract {0}, trying again in {1} seconds. ({2}/{3})</sys:String>
     <sys:String x:Key="Mods:FailedExtractMaxReached">Failed to extract {0} after max attempts ({1}), skipping. This mod might not work properly so proceed at your own risk</sys:String>
     <sys:String x:Key="Mods:SearchLabel">Search...</sys:String>
-    <sys:String xml:space="preserve" x:Key="Mods:SymKey">★ - Recommend for most users           ♥ - Well liked           !! - Niche, make sure you understand what the mod does</sys:String>
+    <sys:String xml:space="preserve" x:Key="Mods:SymKey">★ - Recommend for most users           ⓘ - Niche, make sure you understand what the mod does</sys:String>
+    <!--    <sys:String xml:space="preserve" x:Key="Mods:SymKey">★ - Recommend for most users           ♥ - Well liked           ⓘ - Niche, make sure you understand what the mod does</sys:String> -->
 
     <!-- About Page -->
     <sys:String x:Key="About:Title">About</sys:String>

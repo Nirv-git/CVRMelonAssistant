@@ -9,7 +9,7 @@ namespace CVRMelonAssistant
 {
     class Updater
     {
-        private static readonly string APILatestURL = "https://api.github.com/repos/knah/CVRMelonAssistant/releases/latest";
+        private static readonly string APILatestURL = "https://api.github.com/repos/Nirv-git/CVRMelonAssistant/releases/latest";
 
         private static Update LatestUpdate;
         private static Version CurrentVersion;

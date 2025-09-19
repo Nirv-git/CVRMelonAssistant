@@ -16,6 +16,7 @@ namespace CVRMelonAssistant
         public string installedVersion;
         public bool installedInBrokenDir;
         public bool installedInRetiredDir;
+        public int flag;
 
         public class ModVersion
         {
@@ -32,11 +33,15 @@ namespace CVRMelonAssistant
             public string ChilloutVRVersion;
             public string loaderVersion;
             public int approvalStatus;
-            public int flag;
 
             public bool IsBroken => approvalStatus == 2;
             public bool IsRetired => approvalStatus == 3;
             public bool IsPlugin => modType.Equals("plugin", StringComparison.InvariantCultureIgnoreCase);
         }
+    }
+    public class FlagEntry
+    {
+        public int _id;
+        public int flag;
     }
 }
