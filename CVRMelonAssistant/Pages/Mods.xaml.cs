@@ -577,7 +577,8 @@ namespace CVRMelonAssistant.Pages
                 SearchBar.Focus();
                 Animate(SearchBar, 0, 20, new TimeSpan(0, 0, 0, 0, 300));
                 Animate(SearchText, 0, 20, new TimeSpan(0, 0, 0, 0, 300));
-                ModsListView.Items.Filter = new Predicate<object>(SearchFilter);
+                if (SearchBar.Text.Length > 2 || SearchBar.Text.Length == 0)
+                    ModsListView.Items.Filter = new Predicate<object>(SearchFilter);
             }
             else
             {
@@ -589,7 +590,9 @@ namespace CVRMelonAssistant.Pages
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ModsListView.Items.Filter = new Predicate<object>(SearchFilter);
+            if (SearchBar.Text.Length > 2 || SearchBar.Text.Length == 0)
+                ModsListView.Items.Filter = new Predicate<object>(SearchFilter);
+
             if (SearchBar.Text.Length > 0)
             {
                 SearchText.Text = null;

@@ -18,7 +18,7 @@
                 <TextBlock />
                 <TextBlock Name="SourceCodeLink" />
                 <TextBlock Name="DownloadLink" />
-                <TextBlock Name="InternalIds" />
+                <TextBlock Name="InternalIds" FontStyle="Italic" FontSize="10" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

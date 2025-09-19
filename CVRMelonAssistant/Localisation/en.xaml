@@ -201,5 +201,5 @@
     <sys:String x:Key="ModInfoWindow:NoDescription">No description available</sys:String>
     <sys:String x:Key="ModInfoWindow:DownloadLink">Download link: </sys:String>
     <sys:String x:Key="ModInfoWindow:SourceCodeLink">Source code: </sys:String>
-    <sys:String x:Key="ModInfoWindow:InternalIds">Internal ID: {0} {1}</sys:String>
+    <sys:String x:Key="ModInfoWindow:InternalIds">Internal ID: {0} - {1}</sys:String>
 </ResourceDictionary>
