@@ -308,12 +308,21 @@
     <Error Condition="!Exists('..\packages\ILRepack.MSBuild.Task.2.0.13\build\ILRepack.MSBuild.Task.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.MSBuild.Task.2.0.13\build\ILRepack.MSBuild.Task.props'))" />
   </Target>
     <Target Name="ILRepack" AfterTargets="Build" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-
-        <PropertyGroup>
-            <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
-        </PropertyGroup>
-
-        <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).exe" OutputAssembly="$(AssemblyName).exe" InputAssemblies="$(WorkingDirectory)\Mono.Cecil.dll" WilcardInputAssemblies="true" WorkingDirectory="$(WorkingDirectory)" />
-
-    </Target>
+    <PropertyGroup>
+      <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
+    </PropertyGroup>
+	<ItemGroup>
+            <InputAssemblies Include="$(WorkingDirectory)\Mono.Cecil.dll" />
+            <InputAssemblies Include="$(WorkingDirectory)\Microsoft.Bcl.AsyncInterfaces.dll" />
+            <InputAssemblies Include="$(WorkingDirectory)\System.Buffers.dll" />
+			<InputAssemblies Include="$(WorkingDirectory)\System.IO.Pipelines.dll" />
+			<InputAssemblies Include="$(WorkingDirectory)\System.Memory.dll" />
+			<InputAssemblies Include="$(WorkingDirectory)\System.Runtime.CompilerServices.Unsafe.dll" />
+			<InputAssemblies Include="$(WorkingDirectory)\System.Text.Encodings.Web.dll" />
+			<InputAssemblies Include="$(WorkingDirectory)\System.Text.Json.dll" />
+			<InputAssemblies Include="$(WorkingDirectory)\System.Threading.Tasks.Extensions.dll" />
+			<InputAssemblies Include="$(WorkingDirectory)\System.Numerics.Vectors.dll" />	
+    </ItemGroup>
+    <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).exe" OutputAssembly="$(AssemblyName).exe" InputAssemblies= "@(InputAssemblies)" WilcardInputAssemblies="true" WorkingDirectory="$(WorkingDirectory)" />
+  </Target>
 </Project>

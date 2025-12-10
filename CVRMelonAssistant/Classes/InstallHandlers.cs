@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 using CVRMelonAssistant.Pages;
@@ -41,6 +43,29 @@ namespace CVRMelonAssistant
             return true;
         }
 
+        private static async Task<string?> GetLatestWindowsMelonLoaderNightlyDownloadUrl()
+        {
+            const string apiUrl =
+                "https://api.github.com/repos/LavaGang/MelonLoader/actions/workflows/5411546/runs" +
+                "?branch=alpha-development&event=push&status=success&per_page=1&sort=created&direction=desc";
+
+            using var http = new HttpClient();
+
+            // GitHub requires a user-agent header
+            http.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+
+            var resp = await http.GetStringAsync(apiUrl);
+            var json = JsonNode.Parse(resp)!["workflow_runs"]!.AsArray();
+
+            if (json.Count == 0)
+                return null;
+
+            var run = json[0];
+            var runId = run!["id"]!.ToString();
+
+            return $"https://nightly.link/LavaGang/MelonLoader/actions/runs/{runId}/MelonLoader.Windows.x64.CI.Release.zip";
+        }
+
         public static async Task InstallMelonLoader()
         {
             if (!RemoveMelonLoader()) return;
@@ -49,7 +74,8 @@ namespace CVRMelonAssistant
             {
                 MainWindow.Instance.MainText = $"{(string) App.Current.FindResource("Mods:DownloadingMelonLoader")}...";
 
-                using var installerZip = await DownloadFileToMemory("https://nightly.link/LavaGang/MelonLoader/actions/runs/17447824590/MelonLoader.Windows.x64.CI.Release.zip");
+                string nightlyLink = await GetLatestWindowsMelonLoaderNightlyDownloadUrl();
+                using var installerZip = await DownloadFileToMemory(nightlyLink);
                 using var zipReader = new ZipArchive(installerZip, ZipArchiveMode.Read);
 
                 MainWindow.Instance.MainText = $"{(string) App.Current.FindResource("Mods:UnpackingMelonLoader")}...";
